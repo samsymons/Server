@@ -1,0 +1,21 @@
+---
+- name: Update cache
+  apt: update_cache=yes
+  tags:
+    - dependencies
+
+- name: Update safe packages
+  apt: upgrade=safe
+  tags:
+    - dependencies
+
+- name: Install packages
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - git
+    - htop
+    - mosh
+    - vim
+    - zsh
+  tags:
+    - dependencies

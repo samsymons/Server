@@ -1,0 +1,13 @@
+---
+- name: Adding NGINX signing key
+  apt_key: url=http://nginx.org/keys/nginx_signing.key state=present
+
+- name: Installing NGINX
+  apt:
+    pkg: nginx
+    state: latest
+
+- name: Starting NGINX
+  service:
+    name: nginx
+    state: started

@@ -7,3 +7,5 @@
     - common
     - vpn
     - nginx
+    - letsencrypt
+

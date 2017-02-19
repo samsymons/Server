@@ -1,0 +1,22 @@
+- name: Download Let's Encrypt
+  git: repo=https://github.com/letsencrypt/letsencrypt
+       dest=/root/letsencrypt
+       version=master
+       force=yes
+
+- name: Create directory for Let's Encrypt configuration and certificates
+  file: state=directory path=/etc/letsencrypt group=root owner=root
+
+- name: Install Let's Encrypt package dependencies
+  command: /root/letsencrypt/letsencrypt-auto --help
+  register: le_deps_result
+  changed_when: "'Bootstrapping dependencies' in le_deps_result.stdout"
+
+- name: Create directory for pre-renewal scripts
+  file: state=directory path=/etc/letsencrypt/prerenew group=root owner=root
+
+- name: Create directory for post-renewal scripts
+  file: state=directory path=/etc/letsencrypt/postrenew group=root owner=root
+
+- name: Reload NGINX to activate with new configuration
+  service: name=nginx state=restarted

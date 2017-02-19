@@ -7,6 +7,14 @@
     pkg: nginx
     state: latest
 
+- name: Removing default NGINX config
+  file: name=/etc/nginx/sites-enabled/default state=absent
+
+- name: Install system NGINX config
+  template:
+    src: templates/nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+
 - name: Starting NGINX
   service:
     name: nginx

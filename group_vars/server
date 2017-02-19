@@ -1,7 +1,12 @@
-# common
+# Common
 domain: 46.101.150.172 
 main_user_name: deploy
 common_timezone: 'Etc/UTC'
+
+# Information
+admin_email: sam@samsymons.com
+letsencrypt_email: sam@samsymons.com
+domain_name: staging.samsymons.com
 
 # VPN
 openvpn_clients:

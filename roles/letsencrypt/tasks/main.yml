@@ -1,22 +1,23 @@
-- name: Download Let's Encrypt
-  git: repo=https://github.com/letsencrypt/letsencrypt
-       dest=/root/letsencrypt
-       version=master
-       force=yes
+- name: Install Let's Encrypt
+  apt: name=letsencrypt state=latest
 
 - name: Create directory for Let's Encrypt configuration and certificates
-  file: state=directory path=/etc/letsencrypt group=root owner=root
+  file: name=/var/www/letsencrypt state=directory
 
 - name: Install Let's Encrypt package dependencies
   command: /root/letsencrypt/letsencrypt-auto --help
   register: le_deps_result
   changed_when: "'Bootstrapping dependencies' in le_deps_result.stdout"
 
-- name: Create directory for pre-renewal scripts
-  file: state=directory path=/etc/letsencrypt/prerenew group=root owner=root
+- name: Create Let's Encrypt certificate
+  shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos -d {{ domain_name }}
+  args:
+    creates: /etc/letsencrypt/live/{{ domain_name }}
 
-- name: Create directory for post-renewal scripts
-  file: state=directory path=/etc/letsencrypt/postrenew group=root owner=root
+- name: Generate dhparams
+  shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
+  args:
+    creates: /etc/nginx/dhparams.pem
 
 - name: Reload NGINX to activate with new configuration
   service: name=nginx state=restarted

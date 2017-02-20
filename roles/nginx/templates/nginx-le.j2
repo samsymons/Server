@@ -2,7 +2,7 @@ add_header X-Frame-Options SAMEORIGIN;
 add_header X-Content-Type-Options nosniff;
 add_header X-XSS-Protection "1; mode=block";
 
-add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'  https://cdnjs.cloudflare.com https://ajax.googleapis.com; img-src 'self' data: https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://cloud.typography.com https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self'; frame-src 'none'; object-src 'none'";
+add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'  https://cdnjs.cloudflare.com https://ajax.googleapis.com; img-src 'self' data: https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://cloud.typography.com https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; frame-src 'none'; object-src 'none'";
 
 # HTTPS server
 #

@@ -21,3 +21,10 @@
 
 - name: Reload NGINX to activate with new configuration
   service: name=nginx state=restarted
+
+- name: Add Let's Encrypt cron job
+  cron:
+    name: letsencrypt_renewal
+    special_time: weekly
+    job: letsencrypt --renew certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos -d {{ domain_name }} && service nginx reload
+

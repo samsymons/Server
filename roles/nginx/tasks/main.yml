@@ -20,6 +20,11 @@
     src: templates/nginx-http.j2
     dest: /etc/nginx/sites-enabled/http
 
+- name: Install NGINX site for blog
+  template:
+    src: templates/nginx-le.j2
+    dest: /etc/nginx/sites-enabled/le
+
 - name: Starting NGINX, just in case
   service:
     name: nginx

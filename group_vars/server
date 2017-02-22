@@ -6,7 +6,7 @@ common_timezone: 'Etc/UTC'
 # Information
 admin_email: sam@samsymons.com
 letsencrypt_email: sam@samsymons.com
-domain_name: staging.samsymons.com
+domain_name: samsymons.com
 
 # VPN
 openvpn_clients:

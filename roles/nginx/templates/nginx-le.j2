@@ -4,11 +4,22 @@ add_header X-XSS-Protection "1; mode=block";
 
 add_header Content-Security-Policy "default-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; img-src 'self' https: data: https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://cloud.typography.com https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; frame-src 'none'; object-src 'none'";
 
+# Expires map
+map $sent_http_content_type $expires {
+    default                    off;
+    text/html                  10d;
+    text/css                   max;
+    application/javascript     max;
+    ~image/                    max;
+}
+
 # HTTPS server
 #
 server {
   listen 443 ssl default deferred;
   server_name {{ domain_name }} *.{{ domain_name }};
+
+  expires $expires;
 
   ssl on;
   ssl_certificate         /etc/letsencrypt/live/{{ domain_name }}/fullchain.pem;

@@ -15,12 +15,12 @@
     src: templates/nginx.conf.j2
     dest: /etc/nginx/nginx.conf
 
-- name: Install NGINX site for Let's Encrypt requests
+- name: Install NGINX configuration for the blog
   template:
     src: templates/nginx-http.j2
     dest: /etc/nginx/sites-enabled/http
 
-- name: Install NGINX site for blog
+- name: Install NGINX configuration for Let's Encrypt
   template:
     src: templates/nginx-le.j2
     dest: /etc/nginx/sites-enabled/le

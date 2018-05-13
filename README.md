@@ -1,6 +1,6 @@
 # Server
 
-A set of Ansible playbooks for configuring a server with support for Nginx, a VPN, and various helper services.
+A set of Ansible playbooks for configuring a server with support for Nginx and various helper services.
 
 ### Running
 

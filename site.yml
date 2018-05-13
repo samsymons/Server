@@ -5,7 +5,6 @@
 
   roles:
     - common
-    - vpn
     - nginx
     - letsencrypt
 

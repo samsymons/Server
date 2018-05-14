@@ -3,22 +3,3 @@
 
 - name: Create directory for Let's Encrypt configuration and certificates
   file: name=/var/www/letsencrypt state=directory
-
-- name: Create Let's Encrypt certificate
-  shell: letsencrypt certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos -d {{ domain_name }}
-  args:
-    creates: /etc/letsencrypt/live/{{ domain_name }}
-
-- name: Generate dhparams
-  shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
-  args:
-    creates: /etc/nginx/dhparams.pem
-
-- name: Reload NGINX to activate with new configuration
-  service: name=nginx state=restarted
-
-- name: Add Let's Encrypt cron job
-  cron:
-    name: letsencrypt_renewal
-    special_time: weekly
-    job: letsencrypt --renew certonly -n --webroot -w /var/www/letsencrypt -m {{ letsencrypt_email }} --agree-tos -d {{ domain_name }} && service nginx reload

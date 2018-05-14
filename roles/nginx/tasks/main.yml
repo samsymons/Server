@@ -17,13 +17,13 @@
 
 - name: Install NGINX configuration for the blog
   template:
-    src: templates/nginx-http.j2
-    dest: /etc/nginx/sites-enabled/http
+    src: templates/nginx-blog.j2
+    dest: /etc/nginx/sites-enabled/blog
 
-- name: Install NGINX configuration for Let's Encrypt
+- name: Install NGINX configuration for staging
   template:
-    src: templates/nginx-le.j2
-    dest: /etc/nginx/sites-enabled/le
+    src: templates/nginx-staging.j2
+    dest: /etc/nginx/sites-enabled/staging
 
 - name: Starting NGINX, just in case
   service:

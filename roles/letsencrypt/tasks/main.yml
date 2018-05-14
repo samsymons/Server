@@ -1,5 +1,15 @@
-- name: Install Let's Encrypt
-  apt: name=letsencrypt state=latest
+---
+- name: Install Certbot
+  package: "name=certbot state=present"
 
-- name: Create directory for Let's Encrypt configuration and certificates
-  file: name=/var/www/letsencrypt state=directory
+- name: Set Certbot script variable
+  set_fact:
+    certbot_script: "certbot"
+
+- name: Renew the certificate daily
+  cron:
+    name: Certbot automatic renewal
+    job: "certbot renew --quiet --no-self-upgrade"
+    minute: "30"
+    hour: "3"
+    user: "{{ ansible_user }}"

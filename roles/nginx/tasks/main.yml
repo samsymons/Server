@@ -15,15 +15,10 @@
     src: templates/nginx.conf.j2
     dest: /etc/nginx/nginx.conf
 
-- name: Install NGINX configuration for the blog
+- name: Install NGINX configuration for blog & staging
   template:
     src: templates/nginx-blog.j2
     dest: /etc/nginx/sites-enabled/blog
-
-- name: Install NGINX configuration for staging
-  template:
-    src: templates/nginx-staging.j2
-    dest: /etc/nginx/sites-enabled/staging
 
 - name: Starting NGINX, just in case
   service:

@@ -1,24 +1,22 @@
-server_tokens off;
-
 server {
-  server_name samsymons.com;
+  server_name staging.samsymons.com;
 
-  root /var/www/blog;
+  root /var/www/staging;
   index index.html index.htm;
 
   listen 443 ssl; # managed by Certbot
-  ssl_certificate /etc/letsencrypt/live/samsymons.com/fullchain.pem; # managed by Certbot
-  ssl_certificate_key /etc/letsencrypt/live/samsymons.com/privkey.pem; # managed by Certbot
+  ssl_certificate /etc/letsencrypt/live/staging.samsymons.com/fullchain.pem; # managed by Certbot
+  ssl_certificate_key /etc/letsencrypt/live/staging.samsymons.com/privkey.pem; # managed by Certbot
   include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 
 server {
-  if ($host = samsymons.com) {
+  if ($host = staging.samsymons.com) {
     return 301 https://$host$request_uri;
   } # managed by Certbot
 
   listen 80 default_server;
-  server_name samsymons.com *.samsymons.com;
+  server_name staging.samsymons.com;
   return 404; # managed by Certbot
 }

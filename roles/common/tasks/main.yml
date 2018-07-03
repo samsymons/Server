@@ -1,16 +1,20 @@
 ---
 - name: Update cache
-  apt: update_cache=yes
+  apt:
+    update_cache: yes
   tags:
     - dependencies
 
 - name: Update safe packages
-  apt: upgrade=safe
+  apt:
+   upgrade: safe
   tags:
     - dependencies
 
 - name: Install packages
-  apt: pkg={{ item }} state=present
+  package:
+    name: "{{ item }}"
+    state: present
   with_items:
     - git
     - htop

@@ -1,4 +1,3 @@
-# Common
 domain: 46.101.150.172
 deploy_user_name: deploy
 common_timezone: 'Etc/UTC'

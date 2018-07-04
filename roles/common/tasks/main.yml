@@ -1,4 +1,5 @@
 ---
+
 - name: Update cache
   apt:
     update_cache: yes
@@ -27,6 +28,12 @@
   ufw:
     rule: allow
     port: "{{ ssh_port }}"
+    proto: tcp
+
+- name: Allow nginx traffic
+  ufw:
+    rule: allow
+    port: "{{ nginx_port }}"
     proto: tcp
 
 - name: Allow Mosh traffic

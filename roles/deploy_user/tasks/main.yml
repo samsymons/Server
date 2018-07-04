@@ -5,11 +5,25 @@
     name: sudo
     state: present
 
+- name: Create the wheel group
+  group:
+    name: wheel
+    state: present
+
+- name: Give the wheel group sudo permissions
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
 - name: Add blog user
   user:
     name: "{{ blog_user_name }}"
+    groups: wheel
     password: "{{ blog_password }}"
-    shell: /bin/zsh
+    shell: /bin/bash
 
 - name: Add authorized keys for blog user
   authorized_key:

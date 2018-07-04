@@ -1,0 +1,11 @@
+- hosts: server
+  handlers:
+    - name: Restart ssh
+      service: name=ssh state=restarted
+  user: blog
+  become: true
+  gather_facts: true
+
+  roles:
+    - blog_setup
+    - letsencrypt

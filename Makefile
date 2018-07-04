@@ -1,4 +1,7 @@
-all: deploy
+all: base blog
 
-deploy:
-	ansible-playbook -i hosts site.yml
+base:
+	ansible-playbook -i hosts base.yml
+
+blog:
+	ansible-playbook -i hosts blog.yml

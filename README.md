@@ -2,6 +2,6 @@
 
 A set of Ansible playbooks for configuring a server with support for Nginx and various helper services.
 
-### Running
+## Running
 
 `ansible-playbook -i ./hosts site.yml`

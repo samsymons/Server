@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: server
   handlers:
     - name: Restart ssh
       service: name=ssh state=restarted
@@ -15,6 +15,7 @@
       - whois
       - zsh
     ssh_port: 22
+    nginx_port: 80
     mosh_from_port: 60000
     mosh_to_port: 60010
     blog_user_name: blog
@@ -31,7 +32,7 @@
     blog_public_keys:
       - ~/.ssh/digitalocean.pub
 
-  user: blog
+  user: root
   become: true
   gather_facts: true
 
@@ -40,4 +41,3 @@
     - deploy_user
     # - nginx
     - letsencrypt
-

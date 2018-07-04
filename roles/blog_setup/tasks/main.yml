@@ -1,0 +1,8 @@
+---
+
+- name: Clone useful dotfiles
+  git:
+    repo: https://github.com/samsymons/dotfiles.git
+    dest: ~/Dotfiles
+    version: master
+    accept_hostkey: yes

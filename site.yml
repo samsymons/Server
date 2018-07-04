@@ -1,4 +1,21 @@
 - hosts: all
+  vars:
+    required_packages:
+      - git
+      - htop
+      - mosh
+      - python-certbot-nginx
+      - ufw
+      - unattended-upgrades
+      - vim
+      - zsh
+    ssh_port: 22
+    mosh_from_port: 60000
+    mosh_to_port: 60010
+    deploy_user_name: deploy
+    deploy_public_keys:
+      - ~/.ssh/digitalocean.pub
+
   user: deploy
   become: True
   gather_facts: True

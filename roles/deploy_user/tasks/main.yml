@@ -4,9 +4,3 @@
   package:
     name: sudo
     state: present
-
-- name: Create deploy user groups
-  group:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ user_groups }}"

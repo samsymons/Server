@@ -2,25 +2,36 @@
 - name: Update cache
   apt:
     update_cache: yes
-  tags:
-    - dependencies
 
 - name: Update safe packages
   apt:
    upgrade: safe
-  tags:
-    - dependencies
 
 - name: Install packages
   package:
     name: "{{ item }}"
     state: present
-  with_items:
-    - git
-    - htop
-    - python-certbot-nginx
-    - mosh
-    - vim
-    - zsh
-  tags:
-    - dependencies
+  with_items: "{{ required_packages }}"
+
+- name: Adjust APT update intervals
+  copy:
+    src: apt_periodic
+    dest: /etc/apt/apt.conf.d/10periodic
+
+- name: Setup UFW
+  ufw:
+    state: enabled
+    policy: deny
+
+- name: Allow SSH traffic
+  ufw:
+    rule: allow
+    port: "{{ ssh_port }}"
+    proto: tcp
+
+- name: Allow Mosh traffic
+  ufw:
+    rule: allow
+    proto: udp
+    port: "{{ mosh_from_port }}:{{ mosh_to_port }}"
+  when: "'mosh' in required_packages"

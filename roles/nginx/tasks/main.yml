@@ -1,6 +1,8 @@
 ---
 - name: Adding NGINX signing key
-  apt_key: url=http://nginx.org/keys/nginx_signing.key state=present
+  apt_key:
+    url: http://nginx.org/keys/nginx_signing.key
+    state: present
 
 - name: Installing NGINX
   apt:
@@ -8,7 +10,9 @@
     state: latest
 
 - name: Removing default NGINX config
-  file: name=/etc/nginx/sites-enabled/default state=absent
+  file:
+    name: /etc/nginx/sites-enabled/default
+    state: absent
 
 - name: Install system NGINX config
   template:

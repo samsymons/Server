@@ -1,6 +1,10 @@
 - hosts: all
+  handlers:
+    - name: Restart ssh
+      service: name=ssh state=restarted
   vars:
     required_packages:
+      - fail2ban
       - git
       - htop
       - mosh
@@ -8,20 +12,32 @@
       - ufw
       - unattended-upgrades
       - vim
+      - whois
       - zsh
     ssh_port: 22
     mosh_from_port: 60000
     mosh_to_port: 60010
-    deploy_user_name: deploy
-    deploy_public_keys:
+    blog_user_name: blog
+    blog_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          35366432643561343464313637363861386666306639363038376436383635626435623361306636
+          6239663633306339333636663136373761383235323834370a396138626137303864333062633430
+          63356334626430663365366466373164316532613837623338393038363036373239626463326239
+          3734306235646566310a653037376131316436653531613563373135643833613464313531666137
+          65366665356263656639396266623334313936626635326663343165363063616538396134346538
+          64373234393736656639303733363131363963353461633135373765346465343639663061633639
+          38663138626430323632613864396137346461623438333133336634376464373730616463663934
+          66643265303063663634
+    blog_public_keys:
       - ~/.ssh/digitalocean.pub
 
-  user: deploy
-  become: True
-  gather_facts: True
+  user: blog
+  become: true
+  gather_facts: true
 
   roles:
     - common
-    - nginx
+    - deploy_user
+    # - nginx
     - letsencrypt
 

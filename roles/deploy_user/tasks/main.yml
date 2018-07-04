@@ -4,3 +4,30 @@
   package:
     name: sudo
     state: present
+
+- name: Add blog user
+  user:
+    name: "{{ blog_user_name }}"
+    password: "{{ blog_password }}"
+    shell: /bin/zsh
+
+- name: Add authorized keys for blog user
+  authorized_key:
+    user: "{{ blog_user_name }}"
+    key: "{{ lookup('file', item) }}"
+  with_items: "{{ blog_public_keys }}"
+
+- name: Add blog user to sudoers
+  lineinfile:
+    dest: /etc/sudoers
+    regexp: "{{ blog_user_name }} ALL"
+    line: "{{ blog_user_name }} ALL=(ALL) ALL"
+    state: present
+
+- name: Disallow password authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    state: present
+  notify: Restart ssh

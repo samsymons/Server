@@ -1,6 +1,0 @@
----
-
-- name: Install Certbot
-  package:
-    name: certbot
-    state: present

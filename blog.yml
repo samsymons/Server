@@ -8,4 +8,5 @@
 
   roles:
     - blog_setup
-    - letsencrypt
+    - nickjj.nginx
+    - nickjj.letsencrypt

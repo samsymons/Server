@@ -1,0 +1,10 @@
+---
+
+letsencrypt_domains: ['staging.samsymons.com']
+letsencrypt_default_ca: 'https://acme-v01.api.letsencrypt.org'
+
+nginx_sites:
+  default:
+    domains: ['staging.samsymons.com', 'www.staging.samsymons.com']
+    root: /var/www/blog
+    default_server: True

@@ -39,5 +39,3 @@
   roles:
     - common
     - deploy_user
-    # - nginx
-    - letsencrypt
